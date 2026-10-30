@@ -1,0 +1,110 @@
+########## DSP VALIDATION ##########
+=== original core @ 31250 Hz ===
+original core @ 31250 Hz
+demo render -> ref_demo.bin (375000 frames)
+preset table -> ref_presets.txt
+ok: silence in -> silence out
+ok: no NaN on silence
+ok: all 30 presets: no NaN
+ok: all 30 presets: audible
+ok: all 30 presets: no runaway
+ok: reverb: impulse produces a tail
+ok: reverb: tail decays by 2.5 s
+ok: echo: first repeat at ~375 ms
+ok: echo: repeats decay monotonically
+ok: pitch +12 st @31250: 867.0 Hz (want 880)
+ok: pitch -12 st @31250: 227.0 Hz (want 220)
+ok: freeze: loop keeps playing after input stops
+ok: freeze: loop is the captured 660 Hz tone
+ok: bypass: dry passthrough ratio 0.9001 (~ out_level 0.9)
+
+[31250 Hz] 14 checks, 0 failures
+
+=== adapted core @ 31250 Hz ===
+adapted core @ 31250 Hz (SPX_SR now 31250, pitch win 1024, comb0 619)
+demo render -> adapt31_demo.bin (375000 frames)
+preset table -> adapt31_presets.txt
+ok: silence in -> silence out
+ok: no NaN on silence
+ok: all 30 presets: no NaN
+ok: all 30 presets: audible
+ok: all 30 presets: no runaway
+ok: reverb: impulse produces a tail
+ok: reverb: tail decays by 2.5 s
+ok: echo: first repeat at ~375 ms
+ok: echo: repeats decay monotonically
+ok: pitch +12 st @31250: 867.0 Hz (want 880)
+ok: pitch -12 st @31250: 227.0 Hz (want 220)
+ok: freeze: loop keeps playing after input stops
+ok: freeze: loop is the captured 660 Hz tone
+ok: bypass: dry passthrough ratio 0.9001 (~ out_level 0.9)
+
+[31250 Hz] 14 checks, 0 failures
+
+=== demo render comparison (original vs adapted, both @ 31250) ===
+samples compared : 750000
+max abs diff     : 0 LSB (int16)
+samples differing: 0
+correlation      : 1.00000000
+preset tables    : 28/30 presets bit-identical; deviating: #5 EARLY REF 1 (2.04%), #6 EARLY REF 2 (18.53%)
+                   (the two EARLY REF programs differ only in the liveness
+                    regeneration tap: the plugin's larger modulation buffer
+                    lets it read at its programmed delay instead of the
+                    firmware's 2048-sample RAM clamp -- see README)
+
+=== adapted core @ 44100 Hz ===
+ok: echo: repeats decay monotonically
+ok: pitch +12 st @44100: 867.0 Hz (want 880)
+ok: pitch -12 st @44100: 227.0 Hz (want 220)
+ok: freeze: loop keeps playing after input stops
+ok: freeze: loop is the captured 660 Hz tone
+ok: bypass: dry passthrough ratio 0.8999 (~ out_level 0.9)
+
+[44100 Hz] 14 checks, 0 failures
+
+=== adapted core @ 48000 Hz ===
+ok: echo: repeats decay monotonically
+ok: pitch +12 st @48000: 867.0 Hz (want 880)
+ok: pitch -12 st @48000: 227.0 Hz (want 220)
+ok: freeze: loop keeps playing after input stops
+ok: freeze: loop is the captured 660 Hz tone
+ok: bypass: dry passthrough ratio 0.8999 (~ out_level 0.9)
+
+[48000 Hz] 14 checks, 0 failures
+
+=== adapted core @ 96000 Hz ===
+ok: echo: repeats decay monotonically
+ok: pitch +12 st @96000: 867.0 Hz (want 880)
+ok: pitch -12 st @96000: 227.0 Hz (want 220)
+ok: freeze: loop keeps playing after input stops
+ok: freeze: loop is the captured 660 Hz tone
+ok: bypass: dry passthrough ratio 0.8997 (~ out_level 0.9)
+
+[96000 Hz] 14 checks, 0 failures
+
+DSP validation done.
+
+########## PLUGIN HARNESS (Linux VST3 @ 48 kHz) ##########
+ok: VST3 file scanned (plugin description found)
+found: PyGamer SPX by PyGamerSPX (VST3)
+ok: plugin instantiates
+ok: plugin reports an editor
+ok: editor component creates
+editor size: 980 x 340
+ok: silence in -> silence out
+ok: reverb tail: all samples finite
+ok: reverb tail: no overload
+reverb tail: early RMS 0.0026, early peak 0.0364, late RMS 0.0000
+ok: reverb: impulse produces a tail
+ok: reverb: tail decays
+ok: pitch +12 via plugin @48k: 879.4 Hz (want 880)
+ok: state serializes
+ok: state-test instances create
+restored program (host view): 7.0
+ok: state: program restored
+ok: second instance has editor
+state round-trip: max |B-C| = 0.000014, B echo peak @434ms = 0.033
+ok: state: restored instance echoes at the saved 434 ms
+ok: state: restored instance sounds identical to live-set instance
+
+plugin harness: 16 checks, 0 failures
