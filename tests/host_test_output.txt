@@ -1,0 +1,55 @@
+ok: silence in -> silence out (LINE source)
+ok: no NaN on silence
+ok: all 30 presets: no NaN
+ok: all 30 presets: audible output from test signal
+ok: all 30 presets: no runaway feedback after input stops
+ok: reverb: impulse produces a tail
+ok: reverb: tail decays by 2.5 s
+ok: echo: first repeat present at ~375 ms
+ok: echo: repeats decay monotonically
+ok: echo: stereo spread decorrelates L/R
+ok: pitch +12 st: measured 867.0 Hz (want 880)
+ok: pitch -12 st: measured 227.0 Hz (want 220)
+ok: freeze: loop keeps playing after input stops
+ok: freeze: loop is the captured 660 Hz tone
+ok: freeze: second trigger returns to live (silent in, silent out)
+ok: compressor: loud/bed ratio 5.28 bypass -> 2.78 comp (loud 19803 -> 13252)
+ok: compressor: loud section pulled down
+ok: gate: -40 dB signal is silenced
+ok: gate: loud signal passes
+ok: EQ: 1kHz/250Hz ratio 1.77 flat -> 6.39 with +12 dB mid
+ok: gate reverb: tail audible while gate is open
+ok: gate reverb: tail cut after gate time
+ok: bypass: output RMS matches input (dry passthrough, x out_level 0.9)
+ok: balance 0: no wet echo, dry only
+ok: balance 1: echo present
+ok: MIDI program change 7 -> program 8
+ok: MIDI program change clamps at 90
+ok: MIDI: wrong channel ignored when midi_ch set
+ok: MIDI: set channel works
+ok: MIDI CC7 -> output level
+ok: MIDI CC91 -> balance
+ok: MIDI note 72 on PITCH sets +12 semitones
+ok: MIDI note 36 on PITCH clamps to -12 semitones
+ok: store into user slot 36
+ok: cannot store over ROM slots
+ok: user image serializes to fixed size
+ok: init clears user slots
+ok: user image deserializes
+ok: user slot 36 round-trips name/params/algo
+ok: corrupt image rejected
+ok: empty user slot loads INIT program
+ok: demo source DEMO PLUCK renders audio
+ok: demo source DEMO PAD renders audio
+ok: demo source DEMO NOISE renders audio
+ok: meter: hot input lights >= 5 LEDs
+demo segment 1: REV HALL
+demo segment 2: STEREO ECHO
+demo segment 3: CHORUS A
+demo segment 4: PITCH +12
+demo segment 5: SYMPHONIC
+demo segment 6: GATE REV
+demo render written: tests/demo_render.wav (12 s, 31250 Hz stereo)
+ok: demo render written
+
+46 checks, 0 failures
